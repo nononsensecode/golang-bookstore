@@ -48,7 +48,7 @@ func GetConfig() *Config {
 func processArgs(cfg interface{}) *args {
 	var argz args
 
-	flag.StringVar(&argz.ConfigFilePath, "c", "./", "Path to configuration directory")
+	flag.StringVar(&argz.ConfigFilePath, "c", "./config", "Path to configuration directory")
 	flag.StringVar(&argz.ConfigFilePrefix, "p", "config", "Prefix of the configuration file")
 	flag.StringVar(&argz.Environment, "e", "development", "Type of development environment such as production, testing..etc")
 
