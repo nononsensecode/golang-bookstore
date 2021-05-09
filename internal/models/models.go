@@ -8,5 +8,6 @@ type Book struct {
 }
 
 type BookRepository interface {
+	Save(book *Book) error
 	FindAll() ([]Book, error)
 }

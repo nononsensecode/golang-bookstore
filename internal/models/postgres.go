@@ -30,3 +30,26 @@ func (repo PostgresqlBookRepository) FindAll() ([]Book, error) {
 
 	return books, nil
 }
+
+func (repo PostgresqlBookRepository) Save(book *Book) error {
+	tx, err := db.Begin()
+	if err != nil {
+		return err
+	}
+
+	stmt, err := tx.Prepare("INSERT INTO books (isbn, title, author, price) VALUES (?, ?, ?, ?)")
+	if err != nil {
+		return err
+	}
+
+	_, err = stmt.Exec(book.Isbn, book.Title, book.Author, book.Price)
+	if err != nil {
+		stmt.Close()
+		tx.Rollback()
+		return err
+	}
+
+	stmt.Close()
+	tx.Commit()
+	return nil
+}
